@@ -54,13 +54,13 @@ public class PagingIteratorTest extends BaseStripeTest {
 				Mockito.<Class<PageableModelCollection>>any(),
 				Mockito.any(APIResource.RequestType.class),
 				Mockito.any(RequestOptions.class))
-		).thenAnswer(new Answer() {
+		).thenAnswer(new Answer<PageableModelCollection>() {
 			private int count = 0;
 
 			// essentially all we're doing here is returning the first page of
 			// results on the first request and the second page of results on
 			// the second
-			public Object answer(InvocationOnMock invocation) {
+			public PageableModelCollection answer(InvocationOnMock invocation) {
 				if (count >= pages.size()) {
 					throw new RuntimeException("Page out of bounds");
 				}

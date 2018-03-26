@@ -74,7 +74,7 @@ public class ExternalAccountTest extends BaseStripeTest {
 
 		stubNetwork(ExternalAccount.class, "{\"id\": \"extacct_123\", \"object\": \"unknown_external_account\"}");
 
-		Map params = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
 		Integer[] amounts = {32, 45};
 		params.put("amounts", amounts);
 		bankAccount.verify(params);

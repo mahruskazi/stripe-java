@@ -66,7 +66,7 @@ public class SourceTest extends BaseStripeTest {
 		String json = resource("source_ach_debit.json");
 		Source src = APIResource.GSON.fromJson(json, Source.class);
 
-		Map params = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<String, Object>();
 		Integer[] values = {32, 45};
 		params.put("values", values);
 		src.verify(params);

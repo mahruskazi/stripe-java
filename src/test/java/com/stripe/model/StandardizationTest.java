@@ -23,13 +23,13 @@ import java.util.Map;
  * Simple test to make sure stripe-java provides consistent bindings.
  */
 public class StandardizationTest {
-	public Collection<Class> getAllModels() throws IOException {
+	public Collection<Class<?>> getAllModels() throws IOException {
 		Class<Charge> chargeClass = Charge.class;
 		ClassPath classPath = ClassPath.from(chargeClass.getClassLoader());
 		ImmutableSet<ClassPath.ClassInfo> topLevelClasses = classPath.getTopLevelClasses(chargeClass.getPackage().getName());
-		List<Class> classList = Lists.newArrayListWithExpectedSize(topLevelClasses.size());
+		List<Class<?>> classList = Lists.newArrayListWithExpectedSize(topLevelClasses.size());
 		for (ClassPath.ClassInfo classInfo : topLevelClasses) {
-			Class c = classInfo.load();
+			Class<?> c = classInfo.load();
 			// Skip things that aren't APIResources
 			if (!APIResource.class.isAssignableFrom(c)) {
 				continue;
@@ -45,7 +45,7 @@ public class StandardizationTest {
 
 	@Test
 	public void allNonDeprecatedMethodsTakeOptions() throws IOException, NoSuchMethodException {
-		for (Class aClass : getAllModels()) {
+		for (Class<?> aClass : getAllModels()) {
 			for (Method method : aClass.getMethods()) {
 				// Skip methods not declared on the base class.
 				if (method.getDeclaringClass() != aClass) {

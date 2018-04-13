@@ -1,18 +1,14 @@
 package com.stripe.functional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
-import com.stripe.BaseStripeFunctionalTest;
+import com.stripe.BaseStripeMockTest;
 import com.stripe.exception.StripeException;
-import com.stripe.model.Card;
-import com.stripe.model.DeletedCard;
-import com.stripe.model.DeletedRecipient;
 import com.stripe.model.Recipient;
+import com.stripe.model.RecipientCollection;
+import com.stripe.net.APIResource;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
@@ -21,12 +17,18 @@ import org.junit.Test;
  * Recipients are deprecated. All tests have been removed; the Java APIs will
  * eventually be removed as well.
  */
-public class RecipientTest extends BaseStripeFunctionalTest {
+public class RecipientTest extends BaseStripeMockTest {
   @Test
-  public void testRecipientList() throws StripeException {
+  public void testList() throws StripeException {
     Map<String, Object> listParams = new HashMap<String, Object>();
-    listParams.put("count", 1);
-    List<Recipient> recipients = Recipient.all(listParams).getData();
-    assertEquals(recipients.size(), 1);
+    listParams.put("limit", 1);
+
+    RecipientCollection resources = Recipient.list(listParams);
+
+    assertNotNull(resources);
+    verifyRequest(
+        APIResource.RequestMethod.GET,
+        String.format("/v1/recipients")
+    );
   }
 }

@@ -32,7 +32,7 @@ import org.mockito.ArgumentMatcher;
 import org.mockito.Mockito;
 
 public class BaseStripeMockTest {
-  private static final String MOCK_MINIMUM_VERSION = "0.12.0";
+  private static final String MOCK_MINIMUM_VERSION = "0.16.1";
 
   private static String port;
 
